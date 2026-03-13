@@ -1,11 +1,121 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import CarruselCard from '../components/CarruselCard.astro';
+import GameCard from '../components/GameCard.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
 ---
 
 <Layout>
-	<Welcome />
+	<header>
+		<div class="header-info">
+			<h1>GameVault</h1>
+		</div>
+		<hr>
+		<div class="searcher">
+			<input type="search" placeholder="Buscar juegos..." />
+		</div>	
+	</header>
+	<main>
+		<div class="top-game-list">
+			<button class="prev">❮</button>
+				<CarruselCard game_info={{name: "The Legend of Zelda: Breath of the Wild", rating: 4.5, released: "2017-03-03", background_image: "https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg"}} />
+  			<button class="next">❯</button>
+		</div>
+		<div class="popular-game-list">
+			
+		</div>
+	</main>
+	<footer>
+		<p>Made by Juancho</p>
+	</footer>
 </Layout>
+
+<style>
+	body {
+		font-family: 'Inter', sans-serif;
+		background-color: #f5f5f5;
+		color: #333;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+
+	header {
+		height: 15%;
+		background-color: #181b25;
+		color: #fff;
+
+		hr {
+			border: 0;
+			height: 2%;
+			background-color: #1e222c;
+			margin: 0;
+		}
+
+		.header-info {
+			margin: 0;
+			display: flex;
+			height: 60%;
+
+			flex-direction: row;
+		}
+
+		.searcher {
+			height: 38%;
+			margin: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			input {
+				width: 50%;
+				padding: 0.5rem;
+				border-radius: 4px;
+				border: none;
+				font-size: 1rem;
+				background-color: #2d3544;
+				color: #fff;
+				&::placeholder {
+					color: #a6acbe;
+				}
+			}
+		}
+	}
+
+	main {
+		height: 80%;
+		display: flex;
+		flex-direction: column;
+
+		.top-game-list {
+			height: 50%;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+
+			button {
+  				position: relative;
+  				top: 50%;
+  				transform: translateY(-50%);
+  				font-size: 30px;
+  				background: rgba(0,0,0,0.5);
+  				color: white;
+  				border: none;
+  				cursor: pointer;
+  				padding: 10px;
+			}
+
+			.prev {
+  				left: 1%;
+			}
+
+			.next {
+  				right: 1%;
+			}
+		}
+	}
+</style>

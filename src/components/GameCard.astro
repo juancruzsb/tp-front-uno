@@ -1,0 +1,110 @@
+---
+import Boton from "./Boton.astro";
+
+const game = Astro.props;
+---
+
+<div class="game-card">
+    <div class="game-image">
+        <div class="game-rating">
+            <p>{game.rating}</p>
+        </div>
+        <img src={game.background_image} alt={game.name} />
+    </div>
+    <div class="lower">
+        <div class="game-info">
+            <h2>{game.name}</h2>
+            <hr>
+            <p>Released: {game.released}</p>
+        </div>
+        <div class="buttons">
+            <Boton text="Ver mas" />
+            <Boton text="Agregar" />
+        </div>
+    </div>
+</div>
+
+<style>
+    .inter {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+    }
+    
+    .game-card {
+        width: 16%;
+        height: 30%;
+        border-radius: 1%;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .game-image {
+        position: relative;
+        margin: 0;
+        height: 55%;
+    }
+
+    .game-rating {
+        position: absolute;
+        top: 5%;
+        right: 3%;
+        background-color: #2b3641;
+        padding: 1.5% 3.4%;
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: "Inter", sans-serif;
+    }
+
+    .game-rating p {
+        color: #e3daad;
+        font-weight: bold   ;
+        margin: 0;
+    }
+
+    .game-image img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        margin: 0;
+    }
+
+    h2 {
+        margin: 16px;
+        font-size: 1rem;
+        font-family: "Inter", sans-serif;
+        color: white;
+        margin: 0;
+        padding: 5%;
+    }
+
+    p {
+        font-family: "Inter", sans-serif;
+        font-size: 0.875rem;
+        margin: 0;
+        color: #ffffff;
+        padding: 5%;
+    }
+
+    .lower {
+        height: 45%;
+        background-color: #181c27;
+        margin: 0;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid #2b3641;
+        margin: 0 5%;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-around;
+
+        Boton {
+            margin 0;
+        }
+    }
+</style>

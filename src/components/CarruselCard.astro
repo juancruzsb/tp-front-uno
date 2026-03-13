@@ -1,0 +1,43 @@
+---
+import Boton from "./Boton.astro";
+
+    const game_info = Astro.props.game_info;
+---
+
+<div class="carrusel-card">
+    <div class="carrusel-game-info">
+        <div class="game-info">
+            <h2>{game_info.name}</h2>
+            <p>Rating: {game_info.rating}</p>
+            <p>Released: {game_info.released}</p>
+        </div>
+        <div class="buttons">
+            <Boton text="Ver más" />
+            <Boton text="Agregar a favoritos" />
+        </div>
+    </div>
+</div>
+
+<style>
+    .carrusel-card {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-image: `url(${game_info.background_image})`;
+        background-size: contain;
+        background-position: center;
+    }
+
+    .carrusel-game-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .game-info {
+        margin-bottom: 20px;
+    }
+</style>
