@@ -18,9 +18,9 @@ import Layout from '../layouts/Layout.astro';
 	<hr class="space">
 	<main>
 		<div class="top-game-list">
-			<button class="prev">❮</button>
-				<CarruselCard id="top-game-list-card" game_info={{name: "The Legend of Zelda: Breath of the Wild", rating: 4.5, released: "2017-03-03"}} />
-  			<button class="next">❯</button>
+			<button class="prev arrows">❮</button>
+				<CarruselCard game_info={{name: "The Legend of Zelda: Breath of the Wild", rating: 4.5, released: "2017-03-03"}} />
+  			<button class="next arrows">❯</button>
 		</div>
 			<hr class="space">
 		<div class="popular-game-list">
@@ -114,7 +114,7 @@ import Layout from '../layouts/Layout.astro';
 			position: relative;
 			gap: 1rem;
 
-			button {
+			.arrows {
   				position: absolute;
   				top: 50%;
   				transform: translateY(-50%);
@@ -137,9 +137,8 @@ import Layout from '../layouts/Layout.astro';
 	}
 </style>
 
-<script>
-	import { call_data, top_games } from '../utils/api_call';
-
+<script type="module" defer>
+	import { call_data, top_games } from "../../public/utils/api_call.js";
 	const top_games_info = await top_games();
 
 	const images = [
@@ -150,20 +149,17 @@ import Layout from '../layouts/Layout.astro';
 
 	let index = 0;
 
-  		const img = document.getElementById("top-game-list-card");
+		const img = document.getElementById("top-game-list-card");
 
-		img.style.backgroundImage = `url(${top_games_info[0].background_image})`;
-
+		console.log(img);
 		document.querySelector(".next").onclick = () => {
 		   console.log(top_games_info);
 		  console.log("Next button clicked");
 		};
-	
+
 		document.querySelector(".prev").onclick = () => {
 		  index--;
 		  if (index < 0) index = images.length - 1;
 		  img.src = images[index];
 		};
-
-	
 </script>
