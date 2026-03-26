@@ -33,17 +33,19 @@ const game = Astro.props;
     }
     
     .game-card {
-        width: 16%;
-        height: 30%;
+        width: clamp(160px, 18vw, 260px);
+        flex-shrink: 0;
         border-radius: 1%;
         overflow: hidden;
         margin: 0;
+        display: flex;
+        flex-direction: column;
     }
 
     .game-image {
         position: relative;
         margin: 0;
-        height: 55%;
+        aspect-ratio: 16 / 9;
     }
 
     .game-rating {
@@ -88,9 +90,9 @@ const game = Astro.props;
     }
 
     .lower {
-        height: 45%;
         background-color: #181c27;
         margin: 0;
+        padding: 10px;
     }
 
     hr {
