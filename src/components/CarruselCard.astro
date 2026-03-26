@@ -11,11 +11,11 @@ const game_info = Astro.props.game_info;
                 <p class="game-rating">{game_info.rating}</p>
                 <h2>{game_info.name}</h2>
             </div>
-            <p>Released: {game_info.released}</p>
+            <hr>
         </div>
         <div class="buttons">
-            <Boton text="Ver más" />
-            <Boton text="Agregar a favoritos" />
+            <button>Ver más</button>
+            <button>Añadir</button>
         </div>
     </div>
 </div>
@@ -26,6 +26,7 @@ const game_info = Astro.props.game_info;
         height: 100%;
         display: flex;
         flex-direction: column;
+        align-items: start;
         background-image: url("https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg");
         background-size: cover;
         background-position: center;
@@ -64,6 +65,11 @@ const game_info = Astro.props.game_info;
     }
 
     .game-info {
+        margin-left: 20%;
+        margin-top: 20%;
+        width: 90%;
+        height: 50%;
+
         .upper {
             display: flex;
             align-items: center;
@@ -71,11 +77,50 @@ const game_info = Astro.props.game_info;
             .game-rating {
                 padding: 1.5% 3.4%;
                 border-radius: 4px;
-                font-size: 1.4rem;
+                font-size: 1.2rem;
                 font-family: "Inter", sans-serif;
                 color: #e3daad;
                 font-weight: bold;
             }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        hr {
+            position: relative;
+            right: 10%;
+            width: 50%;
+        }
+
+        .released {
+            margin-left: 15%;
+        }
+    }
+
+
+    .buttons {
+        margin-left: 28%;
+        width: 50%;
+        display: flex;
+        justify-content: space-around;
+
+        button {
+            width: 40%;
+            padding: 2%;
+            background-color: #2b3641;
+            color: white;
+            border: none;
+            border-radius: 4%;
+            font-size: 0.875rem;
+            font-family: "Inter", sans-serif;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #3c4a5a;
         }
     }
 </style>
