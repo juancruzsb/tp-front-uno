@@ -8,8 +8,8 @@ const game_info = Astro.props.game_info;
     <div class="carrusel-game-info">
         <div class="game-info">
             <div class="upper">
-                <p class="game-rating">{game_info.rating}</p>
-                <h2>{game_info.name}</h2>
+                <p id="carrusel-card-game-rating" class="game-rating">{game_info.rating}</p>
+                <h2 id="carrusel-card-game-name">{game_info.name}</h2>
             </div>
             <hr>
         </div>
@@ -62,6 +62,7 @@ const game_info = Astro.props.game_info;
         display: flex;
         flex-direction: column;
         height: 100%;
+        width: 50%;
     }
 
     .game-info {
@@ -71,8 +72,11 @@ const game_info = Astro.props.game_info;
         height: 50%;
 
         .upper {
+
             display: flex;
             align-items: center;
+            border-radius: 5%;
+            background-color: #181b258f;
 
             .game-rating {
                 padding: 1.5% 3.4%;
@@ -85,6 +89,7 @@ const game_info = Astro.props.game_info;
 
             h2 {
                 font-size: 1.2rem;
+                color: white;
             }
         }
 

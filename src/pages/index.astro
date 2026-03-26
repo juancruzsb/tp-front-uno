@@ -5,34 +5,45 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-	<header>
-		<div class="header-info">
-			<h1>GameVault</h1>
-		</div>
+	<div id="loader">Cargando...</div>
+	<div id="content">
+		<header>
+			<div class="header-info">
+				<h1>GameVault</h1>
+			</div>
+			<hr>
+			<div class="searcher">
+				<input type="search" placeholder="Buscar juegos..." />
+			</div>	
+		</header>
 		<hr>
-		<div class="searcher">
-			<input type="search" placeholder="Buscar juegos..." />
-		</div>	
-	</header>
-	<hr>
-	<hr class="space">
-	<main>
-		<div class="top-game-list">
-			<button class="prev arrows">❮</button>
-				<CarruselCard game_info={{name: "The Legend of Zelda: Breath of the Wild", rating: 4.5, released: "2017-03-03"}} />
-  			<button class="next arrows">❯</button>
-		</div>
-			<hr class="space">
-		<div class="popular-game-list">
-			
-		</div>
-	</main>
-	<footer>
-		<p>Made by Juancho</p>
-	</footer>
+		<hr class="space">
+		<main>
+			<div class="top-game-list">
+				<button class="prev arrows">❮</button>
+					<CarruselCard game_info={{name: "The Legend of Zelda: Breath of the Wild", rating: 4.5, released: "2017-03-03"}} />
+				  <button class="next arrows">❯</button>
+			</div>
+				<hr class="space">
+			<div class="popular-game-list">
+				
+			</div>
+		</main>
+		<footer>
+			<p>Made by Juancho</p>
+		</footer>
+	</div>
 </Layout>
 
 <style>
+	#content {
+		display: none;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+	}
+
 	body {
 		font-family: 'Inter', sans-serif;
 		background-color: #f5f5f5;
@@ -128,6 +139,7 @@ import Layout from '../layouts/Layout.astro';
 
 			.prev {
   				left: 1%;
+				z-index: 9;
 			}
 
 			.next {
@@ -135,31 +147,82 @@ import Layout from '../layouts/Layout.astro';
 			}
 		}
 	}
+
+	#loader {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: white;
+		z-index: 10;
+	}
 </style>
 
 <script type="module" defer>
-	import { call_data, top_games } from "../../public/utils/api_call.js";
-	const top_games_info = await top_games();
+	const loader = document.getElementById("loader");
+	const content = document.getElementById("content");
 
-	const images = [
-	  "img1.jpg",
-	  "img2.jpg",
-	  "img3.jpg"
-	];
+	import { call_data, top_games } from "../../public/utils/api_call.js";
+	let top_games_info;
+
+	async function initData() {
+  	try {
+		top_games_info = await top_games();	
+		initApp();
+  	} catch (error) {
+  	  console.error("Error:", error);
+  	} finally {
+  	  // 🔥 Esto SIEMPRE se ejecuta
+  	  loader.style.display = "none";
+  	  content.style.display = "block";
+  	}
+}
+
+initData();
+	
+function initApp() {
+	console.log(top_games_info)
+	let top_games_info_filter = top_games_info.filter(j => j.background_image !== null && j.name !== null && j.metacritic !== null);
+	console.log
+	function mezclarArray(array) {
+	  for (let i = array.length - 1; i > 0; i--) {
+	    const j = Math.floor(Math.random() * (i + 1));
+	
+	    [array[i], array[j]] = [array[j], array[i]];
+	  }
+
+	  return array;
+	}
+
+	top_games_info_filter = mezclarArray(top_games_info_filter);
 
 	let index = 0;
 
-		const img = document.getElementById("top-game-list-card");
+	const img = document.getElementById("top-game-list-card");
+	const name = document.getElementById("carrusel-card-game-name");
+	const rating = document.getElementById("carrusel-card-game-rating")
 
-		console.log(img);
-		document.querySelector(".next").onclick = () => {
-		   console.log(top_games_info);
-		  console.log("Next button clicked");
-		};
+	img.style.backgroundImage = `url("${top_games_info_filter[index]?.background_image}")`;
+	name.textContent = `${top_games_info_filter[index]?.name}`;
+	rating.textContent = `${top_games_info_filter[index]?.metacritic}`;
 
-		document.querySelector(".prev").onclick = () => {
-		  index--;
-		  if (index < 0) index = images.length - 1;
-		  img.src = images[index];
-		};
+	document.querySelector(".next").onclick = () => {
+		index++;
+		if (index >= top_games_info_filter.length) {
+			index = 0;
+		}
+	  img.style.backgroundImage = `url("${top_games_info_filter[index]?.background_image}")`;
+	  name.textContent = `${top_games_info_filter[index]?.name}`;
+	  rating.textContent = `${top_games_info_filter[index]?.metacritic}`;
+	}
+	document.querySelector(".prev").onclick = () => {
+		index--;
+		if (index < 0) {
+			index = top_games_info_filter.length - 1;
+		}
+	  img.style.backgroundImage = `url("${top_games_info_filter[index]?.background_image}")`;
+	  name.textContent = `${top_games_info_filter[index]?.name}`;
+	  rating.textContent = `${top_games_info_filter[index]?.metacritic}`;
+	};
+}
+
 </script>
